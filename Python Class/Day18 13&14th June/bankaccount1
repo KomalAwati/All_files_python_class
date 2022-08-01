@@ -1,0 +1,114 @@
+
+class BankAccount:
+    #calss variable
+    interest_rate=0.04
+    def __init__(self,name,balance):
+        self.name=name
+        self.balance=balance
+        self.transactions=[ ]
+        self.transactions.append(f"Initial Deposit : {balance}")
+    
+    #deposit method
+    def deposit(self,amount):
+        self.balance+=amount
+        self.transactions.append(f"Amount Deposited : {amount}")
+
+    #withdrawal method
+    def withdraw(self,amount):
+        if amount>self.balance:
+            raise Exception(f"Insufficient Fund!!")
+        self.balance-=amount
+        self.transactions.append(f"Amount withdrawn : {amount}")
+    
+    #Statement method
+    def statement(self):
+        for item in self.transactions:
+            print(item)
+        print(f"Total Balance : {self.balance}")
+
+    #Rate Of Interest
+    def roi(self):
+        interest_amount=self.balance*self.__class__.interest_rate
+        self.balance+=interest_amount
+        self.transactions.append(f"**** Interest Credited {interest_amount}")
+
+    #Transfer_funds
+    def transfer_funds(self,to_account,amount):
+        if amount>self.balance:
+            raise Exception(" Insuficient Funds!!")
+        to_account.deposit(amount)
+        self.balance-=amount
+    
+#Savings Account
+class SavingsBankAccount(BankAccount):
+    def __init__(self, name, balance):
+        super().__init__(name, balance)
+
+    #withdraw method
+    def  withdraw(self, amount):
+        if amount>10000:
+            raise Exception("cannot withdraw more than 10k in SB account")
+        super().withdraw(amount)
+
+# s=SavingsBankAccount("steve",10000)
+# s.withdraw(8000)
+
+class SalaryAccount(BankAccount):
+    MAX_DRAFT_AMOUNT=10000  #it is to be understood as constant
+    def __init__(self,name):
+        super().__init__(name,balance=0.00)
+        self.total_draft_amount_taken=0.00
+        self.is_first_month_salary=True
+    
+    def deposit(self, amount):
+        if self.is_first_month_salary:
+            super().deposit(amount+1000)
+            self.is_first_month_salary=False
+        else:
+            super().deposit(amount)
+
+    def over_draft(self, amount):
+        if self.total_draft_amount_taken+amount<=SalaryAccount.MAX_DRAFT_AMOUNT:
+            super().deposit(amount)
+            self.total_draft_amount_taken += amount
+        else:
+            raise Exception(f"Max available draft amount exceeds {SalaryAccount.MAX_DRAFT_AMOUNT}")
+
+# SeniorCitizenAccount
+class SeniorCitizenAccount(BankAccount):
+    #overriding class variable
+    interest_rate=0.055
+    def __init__(self, name, balance):
+        super().__init__(name, balance)
+
+    def withdraw(self,amount):
+        if amount>20000:
+            raise Exception(f"Max withdrawl amount is 20k")
+        super().withdraw(amount)
+
+#SukanyaSamrudhiAccount
+class SukanyaSamrudhiAccount(BankAccount):
+    interest_rate=0.095
+    def deposit(self, amount):
+        if amount<1000:
+            raise Exception("Min deposit amount is 1k")
+    
+    #completely overriding withdraw amount
+    def withdraw(self,amount):
+        raise Exception("no no")
+
+
+# MULTIPLE INHERITENCE
+class PenaltyAccount:
+    def __init__(self,penalty_amount):
+        self.penalty_amount=penalty_amount
+    
+    def withdraw(self,amount):
+        self.balance-=self.penalty_amount
+        super().withdraw(amount)
+
+class PensionAccount(PenaltyAccount,BankAccount):
+    def __init__(self,name,balance, penalty_amount):
+       PenaltyAccount.__init__(self,penalty_amount)
+       BankAccount.__init__(self,name,balance)
+       

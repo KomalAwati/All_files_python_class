@@ -1,0 +1,4 @@
+#Interview Questions
+#I want to know start and end index of 3rd occurance of hello
+for item in result:
+print(item.start(), item.end())

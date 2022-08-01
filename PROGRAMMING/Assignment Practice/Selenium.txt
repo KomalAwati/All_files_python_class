@@ -1,0 +1,26 @@
+Page_No. -1
+Captcha - To restrict the user from automating the applications
+file downloading, images, 
+
+
+
+Note:
+Selenium.dev
+Robot class is not there in python
+
+switch to window
+
+switch to w
+
+
+iframe - a webpage attached to the one more webpage
+
+How do you handle multiple windows
+Login script
+how do u handle calender pop up?
+xpath expressions for 
+
+
+css selectors are faster than xpath
+
+xpath are the list preferred xpath

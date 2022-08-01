@@ -1,0 +1,38 @@
+Abstraction 
+
+the process of hidding the internal implementation 
+
+from abc import ABC
+
+Difference between from import abstractclassmethod , abstractmethod
+
+we can create abstract class 
+
+Eg . class BankAcount(ABC)
+
+we can inherit the abstract class
+
+as we are inheriting we should implement all the methods in the child class 
+
+#****************************************************************************************
+
+orelse you will get TypeError
+
+How did you implement OO program in python?
+why you are inhering visible
+
+__call__()
+Speacciality?
+
+
+
+what is decorator? eg?
+
+magic method? eg?
+
+@classmethod and @staticmethod
+
+
+
+
+
